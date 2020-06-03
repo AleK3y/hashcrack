@@ -15,5 +15,5 @@ To compile correctly you have to install the developer version of OpenSSL: \
 `sudo apt install libssl-dev`
 
 ## Compile
-In order to compile you have to include the ssl and crypto libraries: \
+In order to compile you have to include the crypto library: \
 `gcc main.c -lcrypto -o hashcrack`
