@@ -16,4 +16,4 @@ To compile correctly you have to install the developer version of OpenSSL: \
 
 ## Compile
 In order to compile you have to include the ssl and crypto libraries: \
-`gcc main.c -lssl -lcrypto -o hashcrack`
+`gcc main.c -lcrypto -o hashcrack`
