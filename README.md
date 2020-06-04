@@ -25,4 +25,4 @@ Make sure you don't change any configuration during the installation (other than
 
 Then you can run this command to correctly compile the source: \
 `gcc -m32 -I "C:\Program Files (x86)\GnuWin32\include" -L "C:\Program Files (x86)\GnuWin32\lib" main.c -lcrypto -o hashcrack.exe` \
-Bare in mind though, the compiled binary is 32 bit because of GnuWin32.
+Bare in mind though, the compiled binary is 32bit (even if you're on a 64bit architecture) because of GnuWin32.
