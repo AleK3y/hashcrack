@@ -1,11 +1,10 @@
 /*
-
  A simple hash cracker.
 
  Notes:
- - Every hash function returns a string which must be freed by the caller;
-
+ - Every hash function returns a string which must be freed by the caller to prevent memory leaks;
 */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
