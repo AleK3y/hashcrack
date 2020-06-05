@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 #include <ctype.h>
 #include <openssl/md5.h>
@@ -67,7 +68,8 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 
-	char *buffer = malloc(BUFFER_SIZE + 1);
+	bool found = false;
+	char *buffer = malloc(BUFFER_SIZE + 1), *_current_hash;
 	while(! feof(dictionary)) {
 		fgets(buffer, BUFFER_SIZE, dictionary);
 
@@ -77,7 +79,6 @@ int main(int argc, char *argv[]) {
 		}
 
 		// Calculate the current hash and check it against the argument hash
-		char *_current_hash;
 		switch(hash_mode) {
 			case 0:
 				_current_hash = md5(buffer);
@@ -94,9 +95,15 @@ int main(int argc, char *argv[]) {
 		}
 		if(strcmp(_current_hash, hash) == 0) {
 			printf("[+] Found | %s\n", buffer);
+			found = true;
 			return 0;
 		}
 		free(_current_hash);
+	}
+
+	if(! found) {
+		printf("[-] Not found\n");
+		return 0;
 	}
 }
 
