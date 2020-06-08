@@ -70,6 +70,24 @@ int main(int argc, char *argv[]) {
 
 	bool found = false;
 	char *buffer = malloc(BUFFER_SIZE + 1), *_current_hash;
+
+	// Set the default hash function based on the hash mode
+	char *(*hash_method)(char *);
+	switch(hash_mode) {
+		case 0:
+			hash_method = &md5;
+			break;
+		case 1:
+			hash_method = &sha1;
+			break;
+		case 2:
+			hash_method = &sha256;
+			break;
+		case 3:
+			hash_method = &sha512;
+			break;
+	}
+
 	while(! feof(dictionary)) {
 		fgets(buffer, BUFFER_SIZE, dictionary);
 
@@ -79,25 +97,13 @@ int main(int argc, char *argv[]) {
 		}
 
 		// Calculate the current hash and check it against the argument hash
-		switch(hash_mode) {
-			case 0:
-				_current_hash = md5(buffer);
-				break;
-			case 1:
-				_current_hash = sha1(buffer);
-				break;
-			case 2:
-				_current_hash = sha256(buffer);
-				break;
-			case 3:
-				_current_hash = sha512(buffer);
-				break;
-		}
+		_current_hash = hash_method(buffer);
 		if(strcmp(_current_hash, hash) == 0) {
 			printf("[+] Found | %s\n", buffer);
 			found = true;
 			return 0;
 		}
+
 		free(_current_hash);
 	}
 
